@@ -3,10 +3,10 @@ from datetime import timedelta
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'sanket-computers-secret-key-2024'
-    MYSQL_HOST = os.environ.get('MYSQL_HOST') or 'localhost'
-    MYSQL_USER = os.environ.get('MYSQL_USER') or 'root'
-    MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD') or ''
-    MYSQL_DB = os.environ.get('MYSQL_DB') or 'cumputer_sales'
+    MYSQL_HOST = os.environ.get('MYSQL_HOST') or 'bwoc0wbiohcd7lulo3iv-mysql.services.clever-cloud.com'
+    MYSQL_USER = os.environ.get('MYSQL_USER') or 'urkj6e4vd5nlvhpp'
+    MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD') or 'YOUR_PASSWORD_HERE'
+    MYSQL_DB = os.environ.get('MYSQL_DB') or 'bwoc0wbiohcd7lulo3iv'
     SQLALCHEMY_DATABASE_URI = f"mysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DB}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

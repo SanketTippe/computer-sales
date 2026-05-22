@@ -21,10 +21,10 @@ import base64
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 
-app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST', 'localhost')
-app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER', 'root')
-app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', '')
-app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'cumputer_sales')
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST', 'bwoc0wbiohcd7lulo3iv-mysql.services.clever-cloud.com')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER', 'urkj6e4vd5nlvhpp')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', 'YOUR_PASSWORD_HERE')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'bwoc0wbiohcd7lulo3iv')
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'sanket-computers-secret-key-2024'
 
