@@ -956,10 +956,7 @@ def cart():
         subtotal += float(item[4]) * item[1]
 
     # Get available coupons
-    cur.execute("""
-        SELECT * FROM tbl_coupons
-        WHERE is_active = 1 AND valid_until > NOW() AND min_order_amount <= %s
-    """, ([subtotal])
+    cur.execute("SELECT * FROM tbl_coupons WHERE is_active = 1 AND valid_until > NOW() AND min_order_amount <= %s", (subtotal,))
     coupons = cur.fetchall()
 
     cur.close()
