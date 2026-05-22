@@ -1,0 +1,93 @@
+{% extends "main1.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+    <script src="{{ url_for('static',filename='validation.js')}}"></script>
+    <style>
+        .container{
+            margin-top: 49px;
+            margin-bottom: 40px;
+            }
+        body {
+            background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+        }
+        .A{
+           background-color: white;
+			padding: px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-top: 10px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.5),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+
+        }
+        span{
+		color: hotpink;
+		}
+
+
+    </style>
+</head>
+<form action="{{ url_for('cd')}}" method="POST">
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"></div>
+              <div class="col-sm-4 A">
+                  <br>
+                  <h3 class="text-center mb-4">Card Payment</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Name
+                        <span>*</span></label>
+                        <input type="text" class="form-control" id="name" name="cd_nm" value="{{session['cd_nm']}}" placeholder="Enter your Name" onkeypress="javascript: return isString(event)" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Card Number <span>*</span></label>
+                        <input type="number" class="form-control" id="email" name="cd_num" placeholder="Enter your Card Number" required>
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Expiry Date<span>*</span></label>
+                        <input type="date" class="form-control" id="phone" name="cd_ex" placeholder="Enter your phone number" onkeypress="javascript: return isNumber(event)" required>
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>CVV<span>*</span></label>
+                        <input type="text" class="form-control" id="upi-id" name="cd_cvv" placeholder="Enter your UPI ID">
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Total Amount<span>*</span></label>
+                        <input type="number" class="form-control" id="amount" name="cd_amount" placeholder="Enter the Total Amount" value="{{session['bam']}}" readonly>
+                    </div>
+                </div>
+                  <br>
+               <div class="d-grid">
+                        <input type="submit" value="Pay Now" class="btn btn-primary" style="background:linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100% ";>
+                    </div>
+                  <br>
+              </div>
+              <div class="col-sm-4"></div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+{% endblock %}

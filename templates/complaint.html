@@ -1,0 +1,104 @@
+{% extends "main.html" %}
+{% block body %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Complaint</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+	<style type="text/css">
+		.container{
+			margin-top: 57px;
+            margin-bottom:40px;
+
+		}
+		.A{
+			background-image:url(static/image/ip.jpg);
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			padding:15px;
+			background-size: cover;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+		}
+		.B{
+			padding:30px;
+			background-color: white;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+		}
+		body{
+          background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+		}
+		span{
+		color: hotpink;
+		}
+
+	</style>
+</head>
+<body>
+<form action="{{ url_for('complaint')}}" method="POST">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1">
+		</div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div class="col-sm-6 A">
+				</div>
+				<div class="col-sm-6 B">
+					  <h3 class="text-center mb-4">Complaint</h3>
+					<br>
+					<div class="row">
+					  <div class="col-sm-6">
+						<label>First Name <span>*</span></label>
+						<input type="text" name="cfirst_fnm" placeholder="Enter First Name"  onkeypress="javascript: return isString(event)" class="form-control" required>
+					</div>
+						  <br>
+						<div class="col-sm-6">
+						<label>Last Name <span>*</span></label>
+						<input type="text" name="clast_lnm" placeholder="Enter Last Name"  onkeypress="javascript: return isString(event)" class="form-control" required>
+                    </div>
+                </div>
+					<br>
+					<div class="row">
+						<div class="col-sm-6">
+                        <label>Email Address <span>*</span></label>
+                        <input type="email" class="form-control" id="email" name="c_email" placeholder="Your Email" required>
+                    </div>
+                <br>
+					<div class="col-sm-6">
+						<label>Number <span>*</span></label>
+						<input type="number" placeholder="Enter Your Number" class="form-control" name="c_num"  onkeypress="javascript: return isNumber(event)" required>
+					</div>
+					</div>
+					<br>
+					<div class="form-group">
+                <label>Complaint Type<span>*</span></label>
+                <select id="rating" name="c_type" class="form-select"  required>
+                    <option value="">Select</option>
+                    <option value="Software Issue">Software Issue</option>
+                    <option value="Hardware Issue">Hardware Issue</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+					<br>
+						<div class="form-group">
+                <label>Description<span>*</span></label>
+                <textarea id="feedback" name="c_descp" rows="4" class="form-control" placeholder="Describe Your Issue"  onkeypress="javascript: return isAlphanumric(event)" required></textarea>
+            </div>
+					<br>
+					<div class="row">
+			<div class="col-sm-12">
+				<input type="submit" value="Submit Complaints" class="btn btn-primary form-control" name="" style="background:linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100% ";>
+			</div>
+					</div>
+				</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
+</form>
+</body>
+</html>
+{% endblock %}

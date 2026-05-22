@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin Log In</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+	<style type="text/css">
+		.container{
+			margin-top:161px;
+            margin-bottom:158px;
+		}
+		.B{
+			padding:30px;
+			background-color: white;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+		}
+
+		body
+		{
+             background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+
+		}
+
+		span
+		{
+		color: hotpink;
+		}
+
+	</style>
+</head>
+<body>
+<form action="{{ url_for('adminlog')}}" method="POST">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm-12 B">
+					  <h2 class="text-center mb-4">Admin Login </h2>
+					<span style="font-weight: bold;">or <a href="adminsign" style="color :linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100%;"> create an account</a></span><br><br>
+
+					<label>Email
+					<span>*</span>
+					</label>
+					<div class="col-sm-12">
+						<input type="text" placeholder="Enter Your Email" name="ad_email" class="form-control" required>
+					</div><br>
+					<label>Password
+					<span>*</span>
+					</label>
+					<div class="col-sm-12">
+						<input type="password" name="ad_pass" class="form-control" placeholder="Enter Your Password" required>
+					</div>
+
+			 		<div class="row">
+			        <div class="col-sm-12">
+						<div class="text-center mt-3">
+							<a href="forgot">Forgot password?</a>
+                        </div>
+					<br>
+					<div class="row">
+			<div class="col-sm-6">
+				<input  type="Submit" value="Login" class="btn btn-primary form-control" name="">
+			</div>
+			<div class="col-sm-6">
+				<input type="Submit" value="Cancel" class="btn btn-danger form-control" name="">
+			</div>
+		</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
+</div>
+	</form>
+</body>
+</html>

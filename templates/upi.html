@@ -1,0 +1,94 @@
+{% extends "main1.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+    <script src="{{ url_for('static',filename='validation.js')}}"></script>
+    <style>
+        .container{
+            margin-top: 49px;
+            margin-bottom: 40px;
+            }
+        body {
+            background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+        }
+        .A{
+           background-color: white;
+			padding: px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-top: 10px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+
+        }
+        span{
+		color: hotpink;
+		}
+
+
+    </style>
+</head>
+<form action="{{ url_for('upi')}}" method="POST">
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"></div>
+              <div class="col-sm-4 A">
+                  <br>
+                  <h3 class="text-center mb-4">UPI Payment</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Full Name
+                        <span>*</span></label>
+                        <input type="text" class="form-control" id="name" name="upi_name" placeholder="Enter your full name" value="{{session['upi_name']}}" onkeypress="javascript: return isString(event)" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Email Address <span>*</span></label>
+                        <input type="email" class="form-control" id="email" name="upi_email" value="{{session['upi_email']}}" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Phone Number <span>*</span></label>
+                        <input type="tel" class="form-control" id="phone" name="upi_number" placeholder="Enter your phone number" value="{{session['upi_number']}}" onkeypress="javascript: return isNumber(event)" pattern="[7-9]{1}[0-9]{9}"
+       title="Phone number with 7-9 and remaing 9 digit with 0-9" required>
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>UPI ID <span>*</span></label>
+                        <input type="text" class="form-control" id="upi-id" name="upi_id" placeholder="Enter your UPI ID">
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Amount <span>*</span></label>
+                        <input type="number" class="form-control" id="amount" name="upi_amount" placeholder="Enter the payment amount" value="{{session['bam']}}" readonly>
+                    </div>
+                </div>
+                  <br>
+               <div class="d-grid">
+                        <input type="submit" value="Pay Now" class="btn btn-primary" style="background:linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100% ";>
+                    </div>
+                  <br>
+              </div>
+              <div class="col-sm-4"></div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
+{% endblock %}

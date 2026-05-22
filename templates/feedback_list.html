@@ -1,0 +1,63 @@
+{% extends 'dash.html'  %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback List</title>
+    <style>
+        .container
+        {
+        border:solid;
+        padding:20px;
+        margin-top:50px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 align="center">Feedback List</h2>
+    <br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Feedback</th>
+         <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in value %}
+    <tr>
+         <form action="{{url_for('update_feedback')}}" method="post">
+        <tr>
+        <th scope="row"></th>
+            <input type="hidden" name="f_id" value="{{ row[0] }}">
+      <td><input type="text" name="feed_name" value="{{ row[1] }}" class="form-control" placeholder="Enter Full Name"> </td>
+        <td><input type="email" name="feed_email" value="{{ row[2] }}" class="form-control" placeholder="Enter Email"> </td>
+             <td><input type="text" name="feed_rating" value="{{ row[3] }}" class="form-control" placeholder="Enter Rating"> </td>
+              <td><input type="text" name="feed_yourfeed" value="{{ row[4] }}" class="form-control" placeholder="Enter Feedback"> </td>
+
+
+        <td><input type="submit" name="" class="btn btn-success" value="Update"></td>
+            </form>
+        <form action="{{ url_for('delete_feedback') }}" method="POST">
+        <input type="hidden" name="f_id" value="{{ row[0] }}">
+        <td><input type="submit" name="" class="btn btn-danger" value="Delete"></td>
+            </form>
+    </tr>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>
+{% endblock %}

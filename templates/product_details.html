@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product[1] }} - Sanket's Computers & Sales{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="product-image-container">
+                <img src="{{ url_for('static', filename=product[8]) }}" class="img-fluid" alt="{{ product[1] }}" style="width:100%; max-height:400px; object-fit:contain;">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('view_category') }}">Products</a></li>
+                    <li class="breadcrumb-item active">{{ product[1] }}</li>
+                </ol>
+            </nav>
+
+            <h2>{{ product[1] }}</h2>
+            <p class="text-muted">Brand: {{ product[2] }} | Category: {{ product[25] if product[25] else 'N/A' }}</p>
+
+            <div class="rating mb-3">
+                {% for i in range(5) %}
+                <i class="fas fa-star{% if product[23] and i < product[23]|int %}{% else %}-empty{% endif %}"></i>
+                {% endfor %}
+                <span>({{ product[24] if product[24] else 0 }} reviews)</span>
+            </div>
+
+            <div class="product-price mb-3" style="font-size:28px;">
+                Rs. {% if product[14] and product[15] %}{{ product[14] }}{% else %}{{ product[3] }}{% endif %}
+                {% if product[4] and product[4] > product[3] %}
+                <span class="product-original-price" style="font-size:18px;">Rs. {{ product[4] }}</span>
+                <span class="badge badge-success ms-2">Save Rs. {{ product[4] - product[3] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="stock-info mb-3">
+                {% if product[5] > 0 %}
+                <span class="text-success"><i class="fas fa-check-circle"></i> In Stock ({{ product[5] }} available)</span>
+                {% else %}
+                <span class="text-danger"><i class="fas fa-times-circle"></i> Out of Stock</span>
+                {% endif %}
+            </div>
+
+            <p class="mb-4">{{ product[6] }}</p>
+
+            {% if session.get('uid') %}
+            <div class="mb-3">
+                <a href="{{ url_for('add_wishlist', product_id=product[0]) }}" class="btn btn-outline-danger">
+                    <i class="fas fa-heart"></i> Add to Wishlist
+                </a>
+            </div>
+            {% endif %}
+
+            {% if product[5] > 0 %}
+            <form method="POST" action="{{ url_for('add_to_cart', product_id=product[0]) }}">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" class="form-control" value="1" min="1" max="{{ product[5] }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary-custom btn-lg">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </form>
+            {% else %}
+            <button class="btn btn-secondary btn-lg" disabled>Out of Stock</button>
+            {% endif %}
+
+            <div class="mt-4">
+                <p><i class="fas fa-truck"></i> Free delivery on orders above Rs 1000</p>
+                <p><i class="fas fa-undo"></i> {{ product[21] if product[21] else 7 }} days easy return</p>
+                <p><i class="fas fa-shield-alt"></i> {{ product[20] if product[20] else 12 }} months warranty</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Reviews -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Customer Reviews</h3>
+            {% if reviews %}
+            {% for review in reviews %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>{{ review[6] }}</strong>
+                            <div class="rating">
+                                {% for i in range(5) %}
+                                <i class="fas fa-star{% if i < review[3]|int %}{% else %}-empty{% endif %}" style="font-size:12px;"></i>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <small class="text-muted">{{ review[7] }}</small>
+                    </div>
+                    <h6>{{ review[4] }}</h6>
+                    <p>{{ review[5] }}</p>
+                    {% if review[6] %}
+                    <span class="badge bg-success">Verified Purchase</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-muted">No reviews yet. Be the first to review this product!</p>
+            {% endif %}
+
+            {% if session.get('uid') %}
+            <div class="mt-4">
+                <h4>Write a Review</h4>
+                <form method="POST" action="{{ url_for('add_review', product_id=product[0]) }}">
+                    <div class="mb-3">
+                        <label>Rating</label>
+                        <select name="rating" class="form-select" required>
+                            <option value="5">5 Stars - Excellent</option>
+                            <option value="4">4 Stars - Good</option>
+                            <option value="3">3 Stars - Average</option>
+                            <option value="2">2 Stars - Poor</option>
+                            <option value="1">1 Star - Very Poor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Review title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Your Review</label>
+                        <textarea name="review_text" class="form-control" rows="4" placeholder="Share your experience with this product" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+            {% else %}
+            <p class="mt-3"><a href="{{ url_for('userlog') }}">Login</a> to write a review</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Related Products</h3>
+            <div class="row">
+                {% for related in related_products %}
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="product-card">
+                        <a href="{{ url_for('product_details', product_id=related[0]) }}">
+                            <img src="{{ url_for('static', filename=related[8]) }}" class="product-image" alt="{{ related[1] }}">
+                        </a>
+                        <div class="product-title">{{ related[1] }}</div>
+                        <div class="product-price">Rs. {{ related[3] }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

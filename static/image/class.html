@@ -1,0 +1,84 @@
+<%--
+    Document   : admin_signup
+    Created on : 23 Dec, 2024, 11:49:16 AM
+    Author     : admin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Signup</title>
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <style>
+            .container
+            {
+                border: solid 1px;
+                padding: 20px;
+                margin: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        <h1>Signup</h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>First Name</label>
+                <input type="text" name="" class="form-control" placeholder="Enter First Name">
+            </div>
+            <div class="col-sm-6">
+                <label>Last Name</label>
+                <input type="text" name="" class="form-control" placeholder="Enter Last name">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Address</label>
+                <textarea name="" class="form-control" placeholder="Enter Address"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>Email Id</label>
+                <input type="email" name="" class="form-control" placeholder="Enter Email id">
+            </div>
+            <div class="col-sm-4">
+                <label>Contact No</label>
+                <input type="text" name="" class="form-control" placeholder="Enter Contact" maxlength="10" minlength="10">
+            </div>
+            <div class="col-sm-4">
+                <label>Gender</label>
+                <select class="form-control" name="">
+                    <option>Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Password</label>
+                <input type="password" name="" class="form-control" placeholder="Enter Password">
+            </div>
+            <div class="col-sm-6">
+                <label>Confirm Password</label>
+                <input type="password" name="" class="form-control" placeholder="Enter Confirm Password">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                 <input type="submit" name="" value="Signup" class="btn btn-primary">
+
+                <input type="submit" name="" value="Cancel" class="btn btn-danger">
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

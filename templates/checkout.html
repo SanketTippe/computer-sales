@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Sanket's Computers & Sales{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="section-title">Checkout</h2>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Shipping Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Full Name</label>
+                                <input type="text" name="full_name" class="form-control" value="{{ user[1] if user else '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" value="{{ user[2] if user else '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Phone Number</label>
+                                <input type="tel" name="phone" class="form-control" value="{{ user[3] if user else '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>City</label>
+                                <input type="text" name="city" class="form-control" value="{{ user[7] if user else '' }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>State</label>
+                                <input type="text" name="state" class="form-control" value="{{ user[8] if user else '' }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Pincode</label>
+                                <input type="text" name="pincode" class="form-control" value="{{ user[9] if user else '' }}">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label>Full Address</label>
+                                <textarea name="address" class="form-control" rows="3" required>{{ user[5] if user else '' }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Items</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in cart_items %}
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{{ url_for('static', filename=item[5]) }}" class="img-fluid" style="width:60px; height:60px; object-fit:contain;" alt="{{ item[3] }}">
+                            <div class="ms-3 flex-grow-1">
+                                <h6 class="mb-0">{{ item[3] }}</h6>
+                                <small class="text-muted">Qty: {{ item[1] }} x Rs. {{ item[4] }}</small>
+                            </div>
+                            <span class="fw-bold">Rs. {{ item[4] * item[1] }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Payment Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span>Rs. {{ subtotal }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span>{% if subtotal >= 1000 %}<span class="text-success">FREE</span>{% else %}Rs. {{ shipping }}{% endif %}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>GST (18%)</span>
+                            <span>Rs. {{ tax|round(2) }}</span>
+                        </div>
+                        {% if coupon_discount > 0 %}
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Coupon Discount</span>
+                            <span class="text-success">-Rs. {{ coupon_discount|round(2) }}</span>
+                        </div>
+                        {% endif %}
+                        <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong>Total</strong>
+                            <strong class="text-danger" style="font-size:22px;">Rs. {{ total|round(2) }}</strong>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-lock"></i> Place Order
+                        </button>
+                        <p class="text-muted text-center mt-2 mb-0">
+                            <i class="fas fa-shield-alt"></i> Secure checkout
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

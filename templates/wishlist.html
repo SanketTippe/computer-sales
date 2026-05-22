@@ -1,0 +1,89 @@
+{% extends 'main.html' %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Wishlist</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding: 20px;
+            margin-top: 50px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .product-image {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+        .product-brand {
+            color: #666;
+            font-size: 14px;
+        }
+        .product-price {
+            font-size: 20px;
+            color: #28a745;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn-remove {
+            background: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-buy {
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Wishlist</h2>
+    <div class="row">
+        {% for row in value %}
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="{{ url_for('static', filename=row[4].replace('\\', '/').replace('static/', '')) }}" class="product-image" alt="{{ row[1] }}">
+                <div class="product-name">{{ row[1] }}</div>
+                <div class="product-brand">{{ row[2] }}</div>
+                <div class="product-price">₹{{ row[3] }}</div>
+                <div class="text-center">
+                    <a href="/remove_wishlist/{{ row[0] }}" class="btn-remove">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if not value %}
+        <p class="text-center">Your wishlist is empty. <a href="/view_category">Start Shopping</a></p>
+    {% endif %}
+</div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js')}}"></script>
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+    <style>
+    .Z{
+     background:linear-gradient(to right, #0099ff 0%, #0066ff 100%);
+     border: 2px solid black;
+     width: 100%;
+     height: 70px;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg Z">
+  <div class="container-fluid">
+    <a class="navbar-brand P" href="#" style="color:black;font-weight:bold;font-size:30px;padding:20px;">PCverse</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" style="font-size: 20px">
+          <a style="color:white;" class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+            <li class="nav-item" style="font-size: 20px">
+          <a style="color:white;" class="nav-link" href="feedback">Feedback</a>
+         </li>
+           <li class="nav-item" style="font-size: 20px">
+          <a style="color:white;" class="nav-link" href="complaint">Complaint</a>
+           </li>
+          <li class="nav-item" style="font-size: 20px">
+          <a style="color:white;" class="nav-link" href="addcategory">Add Category</a>
+         </li>
+          <li class="nav-item" style="font-size: 20px">
+          <a style="color:white;" class="nav-link" href="addproduct">Add Product</a>
+         </li>
+        <li class="nav-item dropdown" style="font-size: 20px">
+          <a class="nav-link dropdown-toggle" style="color:white;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Lists
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href={{url_for('booking_list')}}>Booking List</a></li>
+            <li><a class="dropdown-item" href={{url_for('complaint_list')}}>Complaint List</a></li>
+            <li><a class="dropdown-item" href={{url_for('category_list')}}>Category List</a></li>
+              <li><a class="dropdown-item" href={{url_for('feedback_list')}}>Feedback List</a></li>
+              <li><a class="dropdown-item" href={{url_for('product_list')}}>Product List</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+      </ul>
+        <form>
+               <button class="btn btn-danger" type="submit" style="background: linear-gradient(to left, #ff66cc 0%, #ff66ff 100%)" >Log Out</button>
+        </form>
+    </div>
+  </div>
+</nav>
+{% block body %}
+{% endblock %}
+
+</body>
+</html>

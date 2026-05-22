@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin Sign Up</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+	<style type="text/css">
+		body{
+            background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+           }
+		.A{
+			background-color: white;
+			padding: px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-top: 10px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+
+		}
+		.container{
+			margin-top:96px;
+			margin-bottom:94px;
+		}
+		span{
+		color: hotpink;
+		}
+
+	</style>
+</head>
+<body>
+<form action="{{ url_for('adminsign')}}" method="POST">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 A ">
+				<br>
+				<h2 class="text-center mb-4">Admin Signup</h2>
+				<div class="row">
+					<div class="col-sm-12">
+                        <label>Full Name <span>*</span></label>
+						<input type="text" name="ad_fnm" class="form-control" placeholder=" Enter Your First name" onkeypress="javascript: return isString(event)" required>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-12">
+                        <label>Email <span>*</span></label>
+						<input type="email" name="ad_email" class="form-control" placeholder="Enter Your Email Address"  required>
+					</div>
+				</div>
+                <br>
+				<div class="row">
+					<div class="col-sm-12">
+                        <label>Phone Number <span>*</span></label>
+						<input type="number" name="ad_num" value="" class="form-control" placeholder="Enter Your Number"  onkeypress="javascript : return isNumber(event)"required>
+					</div>
+                </div>
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<label>Password <span>*</span></label>
+                        <input type="password" class="form-control" placeholder="Enter Your Password" name="ad_pss">
+					</div>
+                    <div class="col-sm-6">
+                        <label>Confirm Password <span>*</span></label>
+                        <input type="password" class="form-control" placeholder="Enter Confirm Password" name="ad_conpss">
+                    </div>
+				</div>
+				<br>
+                    <br>
+					<div class="d-grid">
+                        <input type="submit" value="Sign Up" class="btn btn-primary" style="background:linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100% ";>
+                    </div>
+				<br>
+				<br>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% extends "main1.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice - {{ order[10] }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+            padding: 20px;
+        }
+        .invoice-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .invoice-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .invoice-header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .invoice-number {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .invoice-details {
+            display: table;
+            width: 100%;
+        }
+        .invoice-row {
+            display: table-row;
+        }
+        .invoice-label {
+            display: table-cell;
+            padding: 10px;
+            font-weight: bold;
+            color: #555;
+            width: 40%;
+        }
+        .invoice-value {
+            display: table-cell;
+            padding: 10px;
+            color: #333;
+        }
+        .total-amount {
+            background: #f0f0f0;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .status-paid { background: #28a745; color: white; }
+        .status-pending { background: #ffc107; color: black; }
+        .status-canceled { background: #dc3545; color: white; }
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h1>INVOICE</h1>
+            <div class="invoice-number">{{ order[10] }}</div>
+        </div>
+
+        <div class="invoice-details">
+            <div class="invoice-row">
+                <div class="invoice-label">Customer Name:</div>
+                <div class="invoice-value">{{ order[2] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Email:</div>
+                <div class="invoice-value">{{ order[3] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Contact Number:</div>
+                <div class="invoice-value">{{ order[4] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Product:</div>
+                <div class="invoice-value">{{ order[5] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Price per Unit:</div>
+                <div class="invoice-value">{{ order[6] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Quantity:</div>
+                <div class="invoice-value">{{ order[7] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Booking Date:</div>
+                <div class="invoice-value">{{ order[14] }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Payment Method:</div>
+                <div class="invoice-value">{{ order[11] or 'Pending' }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Payment Date:</div>
+                <div class="invoice-value">{{ order[12] or 'Not Paid' }}</div>
+            </div>
+            <div class="invoice-row">
+                <div class="invoice-label">Status:</div>
+                <div class="invoice-value">
+                    {% if order[9] == 'Paid' or order[9] == 'Delivered' %}
+                        <span class="status status-paid">{{ order[9] }}</span>
+                    {% elif order[13] == 1 %}
+                        <span class="status status-canceled">Canceled</span>
+                    {% else %}
+                        <span class="status status-pending">{{ order[9] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="total-amount">
+            Total Amount: {{ order[8] }}
+        </div>
+
+        <div class="action-buttons">
+            <a href="/receipt/{{ order[0] }}" class="btn btn-primary" target="_blank">Download Receipt</a>
+            {% if order[13] == 0 and order[9] in ['Pending', 'In Process'] %}
+            <a href="/cancel_order/{{ order[0] }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this order?')">Cancel Order</a>
+            {% endif %}
+            <a href="/myord" class="btn btn-success">Back to Orders</a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

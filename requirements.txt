@@ -1,0 +1,7 @@
+Flask
+flask-mysqldb
+Werkzeug
+mysqlclient
+qrcode
+Pillow
+bcrypt

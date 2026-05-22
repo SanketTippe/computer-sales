@@ -1,0 +1,89 @@
+{% extends "dash.html" %}
+{% block body %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+	</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+	<style type="text/css">
+		.B{
+			padding:30px;
+			background-color: white;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+		    box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.5),0 8px 20px 0 rgba(0, 0, 0, 0.39);
+		}
+		.container{
+			margin-top:85px;
+            margin-bottom:85px;
+		}
+		body{
+             background: white;
+		}
+        span{
+		color: hotpink;
+		}
+
+		h2{
+        color: blue;
+        }
+
+
+
+	</style>
+</head>
+<body>
+<form action="{{ url_for('addcategory')}}" method="POST" enctype="multipart/form-data">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+
+		</div>
+		<div class="col-sm-6 B">
+			  <h2 class="text-center mb-4">Add Category</h2>
+			<div class="row">
+				<div class="col-sm-12">
+				</div>
+				<div class="col-sm-12">
+					<br>
+					<label>Category Name <span>*</span></label>
+					<div class="col-sm-12">
+						<input type="text" placeholder="Enter Your Category" name="cname" class="form-control" onkeypress="javascript: return isString(event)">
+					</div><br>
+					<label>Category Image <span>*</span></label>
+					<div class="col-sm-12">
+						<input type="file" name="cimage" class="form-control" placeholder="Enter Your Password" required>
+					</div>
+                    <br>
+					<div class="col-sm-12">
+						<label>Description <span>*</span></label>
+						<textarea class="form-control"  name="cdesc" rows="3" id="description" onkeypress="javascript: return isAlphanumric(event)" required>
+                        </textarea>
+                    </div>
+                    <br>
+                    <div class="row">
+			<div class="col-sm-6">
+				<input  type="Submit" value="Add Category" class="btn btn-primary form-control" name="">
+			</div>
+			<div class="col-sm-6">
+				<input type="Submit" value="Cancel" class="btn btn-danger form-control" name="">
+			</div>
+		</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+	<div class="col-sm-3"></div>
+	</div>
+</div>
+	</form>
+</body>
+</html>
+
+{% endblock %}

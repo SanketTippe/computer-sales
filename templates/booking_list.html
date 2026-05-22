@@ -1,0 +1,76 @@
+{% extends 'dash.html'  %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking List</title>
+    <style>
+        .container
+        {
+        border:solid;
+        padding:20px;
+        margin-top:50px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 align="center">Booking List</h2>
+    <br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+        <th scope="col">Contact</th>
+      <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total Amount</th>
+         <th scope="col">...</th>
+         <th scope="col">Status</th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in value %}
+    <tr>
+         <form action="{{url_for('update_booking')}}" method="post">
+        <tr>
+        <th scope="row"></th>
+            <input type="hidden" name="b_id" value="{{ row[0] }}">
+      <td><input type="text" name="bfull_name" value="{{ row[2] }}" class="form-control" placeholder="Enter Name"> </td>
+        <td><input type="email" name="bemail" value="{{ row[3] }}" class="form-control" placeholder="Enter Email"> </td>
+             <td><input type="number" name="bcontact" value="{{ row[4] }}" class="form-control" placeholder="Enter Your Number"> </td>
+         <td><input type="text" name="bselect" value="{{ row[5] }}" class="form-control" placeholder="Enter Your Product"> </td>
+            <td><input type="number" name="bprice" value="{{ row[6] }}" class="form-control" placeholder="Enter Your Price"> </td>
+            <td><input type="number" name="bquan" value="{{ row[7] }}" class="form-control" placeholder="Enter Your Quantity"> </td>
+               <td><input type="number" name="bam" value="{{ row[8] }}" class="form-control" placeholder="Enter Your Amount"> </td>
+
+        <td>
+            <select class="form-control" name="status">
+                <option>In Process</option>
+                <option>Confirm</option>
+                <option>Delivered</option>
+                <option>Canceled</option>
+            </select>
+        </td>
+        <td><input type="submit" name="btn" class="btn btn-primary" value="Status"></td>
+            </form>
+        <form action="{{ url_for('delete_booking') }}" method="POST">
+        <input type="hidden" name="b_id" value="{{ row[0] }}">
+        <td><input type="submit" name="" class="btn btn-danger" value="Delete"></td>
+            </form>
+    </tr>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>
+{% endblock %}

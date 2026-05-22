@@ -1,0 +1,118 @@
+{% extends "main1.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash on Delivery</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+    <script src="{{ url_for('static',filename='validation.js')}}"></script>
+
+    <style>
+        .container{
+            margin-top: 49px;
+            margin-bottom: 40px;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #ff00ff 0%, #0066ff 100%);
+        }
+
+        .A{
+            background-color: white;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            border-radius:15px;
+            box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.9),
+                       0 8px 20px 0 rgba(0, 0, 0, 0.39);
+        }
+
+        span{
+            color: hotpink;
+        }
+    </style>
+</head>
+
+<body>
+
+<form action="/cod_form" method="POST">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"></div>
+
+        <div class="col-sm-4 A">
+            <br>
+            <h3 class="text-center mb-4">Cash on Delivery</h3>
+
+            <!-- Full Name -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" class="form-control"
+                           name="cod_name"
+                           value="{{session['name']}}"
+                           required>
+                </div>
+            </div>
+            <br>
+
+            <!-- Address -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Delivery Address <span>*</span></label>
+                    <textarea class="form-control"
+                              name="cod_address"
+                              placeholder="Enter your address"
+                              required></textarea>
+                </div>
+            </div>
+            <br>
+
+            <!-- Phone -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Phone Number <span>*</span></label>
+                    <input type="tel" class="form-control"
+                           name="cod_phone"
+                           value="{{session['number']}}"
+                           pattern="[7-9]{1}[0-9]{9}"
+                           required>
+                </div>
+            </div>
+            <br>
+
+            <!-- Amount -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Total Amount <span>*</span></label>
+                    <input type="number" class="form-control"
+                           name="cod_amount"
+                           value="{{session['bam']}}"
+                           readonly>
+                </div>
+            </div>
+            <br>
+
+            <!-- Submit -->
+            <div class="d-grid">
+                <input type="submit"
+                       value="Place Order"
+                       class="btn btn-primary"
+                       style="background:linear-gradient(to bottom right, #0099ff 0%, #ff00ff 100%);">
+            </div>
+            <br>
+
+        </div>
+
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+
+</form>
+
+</body>
+</html>
+{% endblock %}

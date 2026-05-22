@@ -1,0 +1,131 @@
+{% extends "dash.html" %}
+{% block body %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+	</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{ url_for('static',filename='validation.js')}}"></script>
+	<style type="text/css">
+		.container{
+			margin-top:25px;
+            margin-bottom:22px;
+		}
+		.B{
+			padding:30px;
+			background-color: white;
+			border-top-right-radius:15px;
+			border-bottom-right-radius:15px;
+			border-top-left-radius:15px;
+			border-bottom-left-radius:15px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.5),0 8px 20px 0 rgba(0, 0, 0, 0.42);
+		}
+		body{
+             background: white;
+		}
+        span{
+        color: hotpink
+        }
+        h2{
+        color: blue;
+        }
+
+	</style>
+</head>
+<body>
+<form action="{{ url_for('addproduct')}}" method="POST" enctype="multipart/form-data">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+
+		</div>
+		<div class="col-sm-6 B">
+          	  <h2 class="text-center mb-4">Add Product</h2>
+           <br>
+           <div class="row">
+               <div class="col-sm-6">
+                   <label>Product Name
+                       <span>*</span>
+                   </label>
+                   <input type="text" name="product_nm" class="form-control" placeholder="Enter Product Name" required>
+               </div>
+               <div class="col-sm-6">
+                   <label>Brand
+                       <span>*</span>
+                   </label>
+                   <input type="text" name="product_br" class="form-control" placeholder="Enter Brand" required>
+               </div>
+           </div>
+           <br>
+           <div class="row">
+               <div class="col-sm-6">
+                   <label>Price
+                       <span>*</span>
+                   </label>
+                   <input type="number" name="product_price" class="form-control" placeholder="Enter Price" onkeypress="javascript: return isNumber(event)" required>
+               </div>
+               <div class="col-sm-6">
+                   <label>Quantity
+                       <span>*</span>
+                   </label>
+                   <input type="number" name="product_quan" class="form-control" placeholder="Enter Quantity" onkeypress="javascript: return isNumber(event)" required>
+               </div>
+           </div>
+         <br>
+            <div class="row">
+               <div class="col-sm-12">
+                   <label>Description
+                       <span>*</span>
+                   </label>
+                   <textarea name="product_desc" class="form-control" onkeypress="javascript: return isAlphanumric(event)" required></textarea>
+               </div>
+           </div>
+           <br>
+            <div class="col-sm-12">
+                            <label>Category
+                                <span>*</span>
+                            </label>
+                            <select class="form-select" id="category" name="product_cat" required>
+                                <option selected disabled>Select category</option>
+                                <option value="dell">DELL</option>
+                                <option value="hp">HP</option>
+                                <option value="asus">ASUS</option>
+                                  <option value="apple">APPLE</option>
+                            </select>
+                        </div>
+                         <br>
+           <div class="row">
+               <div class="col-sm-12">
+                   <label>Product Image
+                       <span>*</span>
+                   </label>
+                   <input type="file" name="product_img" class="form-control">
+               </div>
+           </div>
+           <br>
+           <div class="row">
+               <div class="text-center">
+                  <input type="submit" name="" value="Add Product" class="btn btn-primary">
+                   <input type="reset" name="" value="Reset" class="btn btn-danger">
+               </div>
+            </div>
+        </div>
+	<div class="col-sm-3"></div>
+	</div>
+</div>
+	</form>
+</body>
+</html>
+
+{% endblock %}
+
+ <p>Product Name:{{ row[1] }}</p>
+            <p>Brand:{{ row[2] }}</p>
+            <p>Price:{{ row[3] }}</p>
+             <p>Quantity:{{ row[4] }}</p>
+              <p>Description:{{ row[5] }}</p>
+             <p>Category:{{ row[6] }}</p>
+            <p>Product Image:{{ row[7] }}</p>
+            <input type="submit" name="" value="View" class="btn btn-success">

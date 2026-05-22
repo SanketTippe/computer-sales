@@ -1,0 +1,57 @@
+{% extends "dash.html"  %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List</title>
+    <style>
+        .container
+        {
+        border:solid;
+        padding:20px;
+        margin-top:50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 align="center">Category List</h2>
+    <br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Description</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in value %}
+    <tr>
+        <form action="{{ url_for('update_category') }}" method="POST">
+        <hidden>
+            <th scope="row"></th>
+            </hidden>
+            <input type="hidden" name="c_id" value="{{ row[0] }}">
+      <td><input type="text" name="cname" value="{{ row[1] }}" class="form-control" placeholder="Enter Category"> </td>
+        <td><input type="file" name="cimage" value="{{ row[4] }}" class="form-control" placeholder="Enter Image"> </td>
+        <td><input type="text" name="cdesc" value="{{ row[5] }}" class="form-control" placeholder="Enter Description"> </td>
+            <td><input type="submit" name="" class="btn btn-success" value="Update"></td>
+            </form>
+
+        <form action="{{ url_for('delete_category') }}" method="POST">
+        <input type="hidden" name="c_id" value="{{ row[0] }}">
+        <td><input type="submit" name="" class="btn btn-danger" value="Delete"></td>
+            </form>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</form>
+</body>
+</html>
+{% endblock %}

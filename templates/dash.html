@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sanket's Computers & Sales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF9900;
+            --secondary: #232F3E;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f5f5;
+        }
+        .sidebar {
+            background: var(--secondary);
+            min-height: 100vh;
+            color: white;
+        }
+        .sidebar a {
+            color: #ccc;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            transition: all 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+        .stat-card {
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .bg-primary-custom { background: var(--primary); }
+        .bg-secondary-custom { background: var(--secondary); }
+        .bg-success-custom { background: #4CAF50; }
+        .bg-danger-custom { background: #B12705; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="text-center py-4 border-bottom border-secondary">
+                    <h4><i class="fas fa-laptop"></i> Admin</h4>
+                </div>
+                <a href="{{ url_for('dash') }}" class="active"><i class="fas fa-home me-2"></i> Dashboard</a>
+                <a href="{{ url_for('product_list') }}"><i class="fas fa-box me-2"></i> Products</a>
+                <a href="{{ url_for('addproduct') }}"><i class="fas fa-plus-circle me-2"></i> Add Product</a>
+                <a href="{{ url_for('category_list') }}"><i class="fas fa-th me-2"></i> Categories</a>
+                <a href="{{ url_for('addcategory') }}"><i class="fas fa-plus me-2"></i> Add Category</a>
+                <a href="{{ url_for('booking_list') }}"><i class="fas fa-shopping-bag me-2"></i> Orders</a>
+                <a href="{{ url_for('user_list') }}"><i class="fas fa-users me-2"></i> Customers</a>
+                <a href="{{ url_for('coupon_list') }}"><i class="fas fa-tag me-2"></i> Coupons</a>
+                <a href="{{ url_for('feedback_list') }}"><i class="fas fa-comment me-2"></i> Feedback</a>
+                <a href="{{ url_for('complaint_list') }}"><i class="fas fa-exclamation-circle me-2"></i> Complaints</a>
+                <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-bar me-2"></i> Analytics</a>
+                <a href="{{ url_for('admin_logout') }}"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Dashboard</h2>
+                    <div>
+                        <span class="me-3">Welcome, <strong>{{ session.get('admin_name', 'Admin') }}</strong></span>
+                        <a href="{{ url_for('home') }}" class="btn btn-sm btn-outline-primary">View Site</a>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card bg-primary-custom">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>{{ total_users }}</h3>
+                                    <p class="mb-0">Total Users</p>
+                                </div>
+                                <i class="fas fa-users fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-secondary-custom">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>{{ total_products }}</h3>
+                                    <p class="mb-0">Products</p>
+                                </div>
+                                <i class="fas fa-box fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-success-custom">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>{{ total_orders }}</h3>
+                                    <p class="mb-0">Total Orders</p>
+                                </div>
+                                <i class="fas fa-shopping-bag fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-danger-custom">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3>Rs. {{ total_revenue|int }}</h3>
+                                    <p class="mb-0">Revenue</p>
+                                </div>
+                                <i class="fas fa-rupee-sign fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Items -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Pending Orders ({{ pending_orders }})</h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="{{ url_for('booking_list') }}" class="btn btn-warning">View Pending Orders</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0"><i class="fas fa-exclamation-circle me-2"></i>Pending Complaints ({{ pending_complaints }})</h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="{{ url_for('complaint_list') }}" class="btn btn-danger">View Complaints</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Recent Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in recent_orders %}
+                                    <tr>
+                                        <td>#{{ order[0] }}</td>
+                                        <td>{{ order[3] }}</td>
+                                        <td>{{ order[10] }}</td>
+                                        <td>Rs. {{ order[14] }}</td>
+                                        <td>
+                                            <span class="badge bg-{% if order[17] == 'Delivered' %}success{% elif order[17] == 'Canceled' %}danger{% else %}warning{% endif %}">
+                                                {{ order[17] }}
+                                            </span>
+                                        </td>
+                                        <td>{{ order[18] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

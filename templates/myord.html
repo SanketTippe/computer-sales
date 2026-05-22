@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders - Sanket's Computers & Sales{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="section-title">My Orders</h2>
+
+    {% if value %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Invoice</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in value %}
+                <tr>
+                    <td>#{{ order[0] }}</td>
+                    <td><small>{{ order[10] }}</small></td>
+                    <td>{{ order[5] }}</td>
+                    <td>{{ order[7] }}</td>
+                    <td>Rs. {{ order[8] }}</td>
+                    <td>
+                        <span class="badge bg-{% if order[9] == 'Delivered' %}success{% elif order[9] == 'Canceled' %}danger{% elif order[9] == 'Pending' %}warning{% else %}info{% endif %}">
+                            {{ order[9] }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-{% if order[11] == 'paid' %}success{% else %}warning{% endif %}">
+                            {{ order[11] }}
+                        </span>
+                    </td>
+                    <td><small>{{ order[14] }}</small></td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ url_for('invoice', booking_id=order[0]) }}" class="btn btn-sm btn-primary" title="View Invoice">
+                                <i class="fas fa-file-invoice"></i>
+                            </a>
+                            {% if order[9] in ['Pending', 'Confirmed'] %}
+                            <a href="{{ url_for('cancel_order', booking_id=order[0]) }}" class="btn btn-sm btn-danger" title="Cancel Order" onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-times"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-shopping-bag fa-5x text-muted mb-4"></i>
+        <h3>No orders yet</h3>
+        <p class="text-muted">Start shopping to see your orders here</p>
+        <a href="{{ url_for('view_category') }}" class="btn btn-primary-custom">Shop Now</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
