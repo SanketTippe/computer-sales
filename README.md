@@ -117,12 +117,7 @@ http://localhost:5000
 ### Customer Login
 Register a new account at: `http://localhost:5000/usersign`
 
-Or use existing accounts (passwords are hashed now):
-| Email | Password |
-|-------|----------|
-| patilprathm2003@gmail.com | 1111 |
-| samrudhi@gmail.com | 1212 |
-| sid@gmail.com | 1234 |
+
 
 **Customer URL:** `http://localhost:5000/userlog`
 
@@ -222,7 +217,7 @@ Computer Sales/
 
 ## Author
 
-**Sachin Patil**
+**Sanket Tippe**
 
 ---
 
